@@ -4,29 +4,29 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMenu } from "@/context/MenuContext";
 import { useCart } from "@/context/CartContext";
+import { useMemo } from "react";
 
 export const Navbar = () => {
   const pathname = usePathname();
-  const { openMenu } = useMenu();
+  const { isOpen, openMenu, closeMenu } = useMenu();
   const { cart, openCart } = useCart();
 
   // Lógica de visibilidad
   const isShopList = pathname === "/shop";
   const isInsideShop = pathname.startsWith("/shop");
 
-  // Contador de productos
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  // Contador de productos con useMemo para optimizar el renderizado
+  const totalItems = useMemo(() => cart.reduce((acc, item) => acc + item.quantity, 0), [cart]);
 
   return (
-    <nav className="bg-green-950 text-green-50 shadow-sm sticky top-0 z-40">
+    <nav className="bg-green-950 text-green-50 shadow-sm sticky top-0 z-50">
       <div className="container mx-auto flex items-center p-4 px-6 justify-between">
-        
         {/* IZQUIERDA: Menú de categorías + Home */}
         <div className="flex items-center gap-6">
           {/* Solo se muestra en la lista de la tienda */}
           {isShopList && (
             <button 
-              onClick={openMenu}
+              onClick={isOpen ? closeMenu : openMenu}
               className="flex flex-col gap-1 group p-1"
               aria-label="Abrir categorías"
             >
@@ -62,7 +62,10 @@ export const Navbar = () => {
               <span className="hidden md:inline text-xs font-bold uppercase tracking-tight">Mi Carrito</span>
               
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-violet-600 text-white text-[10px] font-black w-6 h-6 flex items-center justify-center rounded-full border-2 border-green-950 shadow-lg">
+                <span 
+                  className="absolute bg-violet-600 text-white text-[10px] font-black w-6 h-6 flex items-center justify-center rounded-full border-2 border-green-950 shadow-lg"
+                  style={{ top: '-2px', right: '-2px' }}
+                >
                   {totalItems}
                 </span>
               )}
@@ -71,5 +74,5 @@ export const Navbar = () => {
         </div>      
       </div>
     </nav>
-  );
-};
+  )
+}

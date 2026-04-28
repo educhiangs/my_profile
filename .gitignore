@@ -39,3 +39,21 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Antigravity & Agents
+# Ignoramos los índices y referencias locales porque son pesados y temporales
+upstream/
+**/references
+
+# Ignoramos la carpeta de binarios de agentes
+.agents/bin/
+
+# PERMITIMOS las reglas, los workflows y la configuración esencial
+!.agents/rules/
+!.agents/rules/*.md
+!.agents/workflows/
+!overlay.yaml
+!agents.md
+
+# Ignorar el contenido de las skills (son como node_modules)
+.agents/skills/

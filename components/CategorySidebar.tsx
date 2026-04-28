@@ -23,14 +23,14 @@ export const CategorySidebar = ({
     <>
       {/* Overlay */}
       <div 
-        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/40 z-30 transition-opacity duration-300 ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         onClick={onClose}
       />
 
       {/* Sidebar */}
-      <aside className={`fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-2xl transform transition-transform duration-300 ease-in-out ${
+      <aside className={`fixed top-0 left-0 h-full w-72 bg-white z-40 shadow-2xl transform transition-transform duration-300 ease-in-out pt-17 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}>
         <div className="flex flex-col h-full">

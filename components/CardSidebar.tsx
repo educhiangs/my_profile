@@ -1,9 +1,23 @@
 "use client";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-export const CartSidebar = () => {
+const CartSidebar = () => {
   const { cart, isCartOpen, closeCart, removeFromCart, totalPrice } = useCart();
+  
+  // Estado para controlar el montado en el cliente
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // Desactivamos la regla de ESLint solo para esta línea, 
+    // ya que en Next.js esto es necesario para evitar errores de hidratación.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMounted(true);
+  }, []);
+
+  // Si no se ha montado (estamos en el servidor), no renderizamos el HTML
+  if (!isMounted) return null;
 
   return (
     <>
@@ -20,10 +34,11 @@ export const CartSidebar = () => {
         isCartOpen ? "translate-x-0" : "translate-x-full"
       }`}>
         <div className="flex flex-col h-full">
-          {/* Header del carrito */}
+          {/* Header */}
           <div className="p-6 border-b flex justify-between items-center bg-gray-50">
             <div>
               <h2 className="font-black text-xl text-gray-800 uppercase tracking-tight">Tu Carrito</h2>
+              {/* Usamos directamente cart.length del context */}
               <p className="text-xs text-gray-400 font-bold uppercase">{cart.length} Productos</p>
             </div>
             <button onClick={closeCart} className="text-gray-400 hover:text-gray-900 text-2xl transition-colors">✕</button>
@@ -40,7 +55,12 @@ export const CartSidebar = () => {
               cart.map((item) => (
                 <div key={item.id} className="flex gap-4 border-b border-gray-50 pb-6 group">
                   <div className="relative h-24 w-24 rounded-2xl overflow-hidden bg-gray-50 shrink-0 border border-gray-100">
-                    <Image src={`${item.image}/150/150?random=${item.id}`} alt={item.name} fill className="object-cover" />
+                    <Image 
+                      src={item.image ? `${item.image}/150/150` : "/placeholder.png"} 
+                      alt={item.name} 
+                      fill 
+                      className="object-cover" 
+                    />
                   </div>
                   <div className="flex flex-col justify-between flex-1 py-1">
                     <div>
@@ -82,3 +102,5 @@ export const CartSidebar = () => {
     </>
   );
 };
+
+export default CartSidebar;
