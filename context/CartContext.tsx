@@ -8,25 +8,7 @@ import {
   ReactNode, 
   useEffect 
 } from "react";
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-  category: string;
-}
-
-interface CartContextType {
-  cart: CartItem[];
-  isCartOpen: boolean;
-  openCart: () => void;
-  closeCart: () => void;
-  addToCart: (product: Product, quantity: number) => void;
-  removeFromCart: (id: number) => void;
-  totalPrice: number;
-}
+import { CartContextType, CartItem } from "./Interfaces/cart.interfaces";
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 

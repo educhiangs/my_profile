@@ -4,7 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { MenuProvider } from "@/context/MenuContext"; // 2. Importamos el contexto
 import { CartProvider } from "@/context/CartContext";
-import CartSidebar from "@/components/CardSidebar";
+import CartSidebar from "@/components/CartSidebar";
 
 // 3. Definimos las variables de las fuentes (ESTO ES LO QUE TE FALTA)
 const geistSans = Geist({

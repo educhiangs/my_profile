@@ -35,7 +35,7 @@ export const CategorySidebar = ({
       }`}>
         <div className="flex flex-col h-full">
           <div className="p-6 border-b flex justify-between items-center bg-violet-50">
-            <h2 className="font-bold text-violet-900">Categorías</h2>
+            <h2 className="text-xl font-bold text-violet-900">Categorías</h2>
             <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl">✕</button>
           </div>
 

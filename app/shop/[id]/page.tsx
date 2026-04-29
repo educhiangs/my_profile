@@ -42,9 +42,12 @@ export default function ProductDetailPage({ params }: PageProps) {
               src={`${product.image}/800/800?random=${product.id}`} 
               alt={product.name}
               fill
-              priority
-              className="object-cover hover:scale-105 transition-transform duration-500"
-            />
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+              
+
+            
           </div>
 
           <div className="flex flex-col">
@@ -102,13 +105,13 @@ export default function ProductDetailPage({ params }: PageProps) {
             </div>
           </div>
         </div>
-        <Caracteristic caracteristicas={caracteristicas} />
         <div className="bg-gray-50 w-full p-6 rounded-2xl mb-8">
             <h3 className="text-sm font-bold text-gray-400 uppercase mb-2">Descripción</h3>
             <p className="text-gray-600 leading-relaxed italic">
               &quot;{product.description}&quot;
             </p>
-          </div>
+        </div>
+        <Caracteristic caracteristicas={caracteristicas} />
       </main>
     </div>
   );
